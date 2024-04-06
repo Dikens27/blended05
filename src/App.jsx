@@ -4,6 +4,7 @@ import { Suspense, lazy, useEffect } from 'react';
 import { Header } from './components';
 import Rates from 'pages/Rates';
 import { fetchBaseCurrency } from 'reduxState/currency/operations';
+import { setBaseCurrency } from 'reduxState/currency/slise';
 
 const HomePage = lazy(() => import('./pages/Home'));
 
@@ -23,8 +24,8 @@ export const App = () => {
       dispatch(fetchBaseCurrency(crd));
     }
 
-    function error(err) {
-      console.warn(`ERROR(${err.code}): ${err.message}`);
+    function error() {
+      dispatch(setBaseCurrency('USD'));
     }
 
     navigator.geolocation.getCurrentPosition(success, error, options);
